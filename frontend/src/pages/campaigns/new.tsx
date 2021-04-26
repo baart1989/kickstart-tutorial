@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Meta } from '../../layout/Meta';
 import { Layout } from '../../templates/Layout';
-import factory from '../../components/factory';
+import CampaignFactory from '../../components/CampaignFactory';
 import provider from '../../utils/Provider';
 import { ErrorPanel } from '../../components/ErrorPanel';
 import { XIcon } from '@heroicons/react/solid';
@@ -9,12 +9,11 @@ import { useRouter } from 'next/router';
 
 const initialState = {
   minimumContrbution: '',
-  errors: undefined as any, 
+  errors: undefined as any,
   isLoading: false,
 };
 
 const Page = () => {
-
   const router = useRouter();
   const [data, changeData] = useState(initialState);
 
@@ -30,7 +29,7 @@ const Page = () => {
     changeData({ ...data, isLoading: true });
     try {
       const signer = provider.getSigner();
-      await factory.connect(signer).createCampaign(data.minimumContrbution);
+      await CampaignFactory.connect(signer).createCampaign(data.minimumContrbution);
       alert('Campaign created!');
       router.push('/');
     } catch (err) {
@@ -42,7 +41,7 @@ const Page = () => {
 
   const clearError = () => {
     changeData({ ...data, errors: undefined, isLoading: false });
-  }
+  };
 
   return (
     <Layout
@@ -55,7 +54,12 @@ const Page = () => {
     >
       <div className="flex items-center justify-between">
         <h1 className="font-bold text-2xl">Create a Campaign</h1>
-        <button disabled={data.isLoading} onClick={onSubmit} type="submit" className="inline-flex items-center btn btn-primary">
+        <button
+          disabled={data.isLoading}
+          onClick={onSubmit}
+          type="submit"
+          className="inline-flex items-center btn btn-primary"
+        >
           {data.isLoading && <XIcon className="h-5 w-5 animate-spin mr-1" />}
           <span>Save</span>
         </button>
@@ -74,7 +78,9 @@ const Page = () => {
               <form className="space-y-6" onSubmit={onSubmit}>
                 <div className="grid grid-cols-3 gap-6">
                   <div className="col-span-3 sm:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700">Minimum Contrbution</label>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Minimum Contrbution
+                    </label>
                     <div className="mt-1 flex rounded-md shadow-sm">
                       <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
                         WEI

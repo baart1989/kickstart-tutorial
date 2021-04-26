@@ -22,9 +22,9 @@ contract Campaign {
   uint public approversCount;
   mapping (address=>bool) public approvers;
 
-  modifier restricted() { 
-    require(msg.sender == manager, "Only manager can modify this contract"); 
-    _; 
+  modifier restricted() {
+    require(msg.sender == manager, "Only manager can modify this contract");
+    _;
   }
 
   constructor(uint minimum, address creator) {
@@ -52,19 +52,32 @@ contract Campaign {
 
     require(approvers[msg.sender], 'Access denied');
     require(!request.approvals[msg.sender], 'User already approved request');
-    
+
     request.approvals[msg.sender] = true;
     request.approvalCount++;
   }
 
   function finalizeRequest(uint index) public {
     Request storage request = requests[index];
-    
+
     require(request.approvalCount > (approversCount / 2));
     require(!request.complete);
-    
+
     request.recipient.transfer(request.value);
     request.complete = true;
   }
 
+  function getSummary() public view returns (uint, uint, uint, uint, address) {
+    return (
+      minContribution,
+      0,
+      requests.length,
+      approversCount,
+      manager
+    );
+  }
+
+  function getRequestsCount() public view returns (uint) {
+    return requests.length;
+  }
 }

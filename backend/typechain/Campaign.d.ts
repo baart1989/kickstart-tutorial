@@ -28,6 +28,8 @@ interface CampaignInterface extends ethers.utils.Interface {
     "contribute()": FunctionFragment;
     "createRequest(string,uint256,address)": FunctionFragment;
     "finalizeRequest(uint256)": FunctionFragment;
+    "getRequestsCount()": FunctionFragment;
+    "getSummary()": FunctionFragment;
     "manager()": FunctionFragment;
     "minContribution()": FunctionFragment;
     "requests(uint256)": FunctionFragment;
@@ -53,6 +55,14 @@ interface CampaignInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "finalizeRequest",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getRequestsCount",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getSummary",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "manager", values?: undefined): string;
   encodeFunctionData(
@@ -82,6 +92,11 @@ interface CampaignInterface extends ethers.utils.Interface {
     functionFragment: "finalizeRequest",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "getRequestsCount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "getSummary", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "manager", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "minContribution",
@@ -189,6 +204,18 @@ export class Campaign extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    getRequestsCount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "getRequestsCount()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    getSummary(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber, string]>;
+
+    "getSummary()"(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber, string]>;
+
     manager(overrides?: CallOverrides): Promise<[string]>;
 
     "manager()"(overrides?: CallOverrides): Promise<[string]>;
@@ -277,6 +304,18 @@ export class Campaign extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  getRequestsCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "getRequestsCount()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  getSummary(
+    overrides?: CallOverrides
+  ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber, string]>;
+
+  "getSummary()"(
+    overrides?: CallOverrides
+  ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber, string]>;
+
   manager(overrides?: CallOverrides): Promise<string>;
 
   "manager()"(overrides?: CallOverrides): Promise<string>;
@@ -360,6 +399,18 @@ export class Campaign extends Contract {
       index: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    getRequestsCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getRequestsCount()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getSummary(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber, string]>;
+
+    "getSummary()"(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber, string]>;
 
     manager(overrides?: CallOverrides): Promise<string>;
 
@@ -452,6 +503,14 @@ export class Campaign extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    getRequestsCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getRequestsCount()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getSummary(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getSummary()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     manager(overrides?: CallOverrides): Promise<BigNumber>;
 
     "manager()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -526,6 +585,16 @@ export class Campaign extends Contract {
       index: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    getRequestsCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "getRequestsCount()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getSummary(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "getSummary()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     manager(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

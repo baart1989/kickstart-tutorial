@@ -1,6 +1,6 @@
 import { Campaign, CampaignFactory } from '../typechain';
 import { ethers } from 'hardhat';
-import { formatUnits, parseEther, parseUnits } from 'ethers/lib/utils';
+import { parseEther } from 'ethers/lib/utils';
 import { solidity } from 'ethereum-waffle';
 import { use, expect, assert } from 'chai';
 

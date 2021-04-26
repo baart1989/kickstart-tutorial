@@ -1,3 +1,5 @@
+import '@nomiclabs/hardhat-ethers';
+
 import { Contract } from 'ethers';
 import { artifacts, ethers, network } from 'hardhat';
 import * as fs from 'fs';

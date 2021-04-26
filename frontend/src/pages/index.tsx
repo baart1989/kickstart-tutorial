@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Meta } from '../layout/Meta';
 import { Layout } from '../templates/Layout';
-import factory from '../components/factory';
+import CampaignFactory from '../components/CampaignFactory';
 // import { BeakerIcon } from '@heroicons/react/solid';
 
 type IndexProps = { campaigns: string[] };
@@ -50,7 +50,7 @@ const Index = ({ campaigns }: IndexProps) => {
 };
 
 Index.getInitialProps = async () => {
-  const campaigns = await factory.getDeployedCampaigns();
+  const campaigns = await CampaignFactory.getDeployedCampaigns();
   return { campaigns };
 };
 
